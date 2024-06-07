@@ -1,0 +1,51 @@
+{
+  "name": "tampermonkey-script-svelte-template",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "",
+  "author": {
+    "name": "SoonIter",
+    "email": "sooniter@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "tampermonkey",
+    "svelte"
+  ],
+  "repository": "https://github.com/SoonIter/[name]",
+  "bugs": {
+    "url": "https://github.com/SoonIter/[name]/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
+    "@tsconfig/svelte": "^3.0.0",
+    "@unocss/preset-attributify": "^0.44.2",
+    "@unocss/preset-uno": "^0.44.2",
+    "autoprefixer": "^10.4.7",
+    "lint-staged": "^12.5.0",
+    "postcss": "^8.4.14",
+    "simple-git-hooks": "^2.8.0",
+    "svelte": "^3.48.0",
+    "svelte-check": "^2.8.0",
+    "svelte-preprocess": "^4.9.8",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4",
+    "unocss": "^0.44.2",
+    "unplugin-auto-import": "^0.9.3",
+    "vite": "^3.2.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,vue,md}": [
+      "eslint --fix"
+    ]
+  }
+}
