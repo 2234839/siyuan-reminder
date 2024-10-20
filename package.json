@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "preact": "10.22.0"
+    "vue": "^3.4.27"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.8.2",
+    "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
-    "vite-plugin-monkey": "^4.0.2"
+    "vite-plugin-monkey": "^4.0.0",
+    "vue-tsc": "^2.0.19"
   }
 }
