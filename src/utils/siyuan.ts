@@ -7,6 +7,7 @@ type sqlResponse = {
   data: { [col: string]: string }[];
 };
 export async function sql(stmt: string) {
+  console.log("[stmt]", stmt);
   return new Promise<sqlResponse>((resolve, reject) => {
     GM.xmlHttpRequest({
       method: "POST",
