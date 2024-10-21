@@ -7,6 +7,7 @@
     transform: translateX(-50%);
     padding: 0 10px 0 10px;
     border-radius: 0 0 10px 10px;
+    color: #333;
   }
 
   .c-list {
@@ -14,6 +15,7 @@
     transform: translateX(-50%);
     background-color: antiquewhite;
     max-height: 80vh;
+    min-width: 400px;
     overflow-y: auto;
     padding: 5px 10px;
     border-radius: 10px;

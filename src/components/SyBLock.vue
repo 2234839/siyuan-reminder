@@ -1,12 +1,14 @@
 <style scoped>
-.c-block{
+  .c-block {
     border-bottom: solid #ccc 1px;
-}
+    display: flex;
+  }
 </style>
 <template>
   <div class="c-block">
     <!-- {{ block.markdown }} -->
-    <vue-markdown :source="block.markdown"  />
+    <vue-markdown :source="block.markdown || block.content" />
+    <a :href="`siyuan://blocks/${block.id}`">📝</a>
   </div>
 </template>
 <script setup lang="ts">
