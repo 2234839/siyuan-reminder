@@ -11,8 +11,11 @@ export default defineConfig({
       userscript: {
         icon: 'https://vitejs.dev/logo.svg',
         namespace: 'npm/vite-plugin-monkey',
-        match: ['*://*'],
-        name:"思源再提醒"
+        match: ['*://*','*://*/*'],
+        name:"思源再提醒",
+        license:'MIT',
+        description:"为思源笔记添加再提醒功能",
+        homepage: "https://github.com/2234839/siyuan-reminder",
       },
       build: {
         externalGlobals: {
