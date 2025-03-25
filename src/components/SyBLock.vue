@@ -8,13 +8,15 @@
   <div class="c-block">
     <!-- {{ block.markdown }} -->
     <vue-markdown :source="block.markdown || block.content" />
-    <a :href="`siyuan://blocks/${block.id}`">📝</a>
+    <a v-if="config.protocol === 'siyuan'" :href="`siyuan://blocks/${block.id}`">📝</a>
+    <a v-else-if="config.protocol === 'http'" :href="`${config.server}/?id=${block.id}&focus=true`">📝</a>
   </div>
 </template>
 <script setup lang="ts">
-  import { syBlock } from "../utils/siyuan";
-  import VueMarkdown from "vue-markdown-render";
-
+  import { config } from '../config';
+  import { syBlock } from '../utils/siyuan';
+  import VueMarkdown from 'vue-markdown-render';
+  config;
   const props = defineProps({
     block: {
       type: Object as () => syBlock,
