@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         思源再提醒
 // @namespace    npm/vite-plugin-monkey
-// @version      0.0.0
+// @version      1.0.0
 // @author       monkey
 // @description  为思源笔记添加再提醒功能
 // @license      MIT
@@ -17,7 +17,7 @@
 // @grant        GM_setValue
 // ==/UserScript==
 
-(o=>{if(typeof GM_addStyle=="function"){GM_addStyle(o);return}const t=document.createElement("style");t.textContent=o,document.head.append(t)})(" .c-block[data-v-5fd0fecb]{border-bottom:solid #ccc 1px;display:flex}.c[data-v-c3481be8]{position:fixed;top:0;left:50vw;background-color:#faebd7;transform:translate(-50%);padding:0 10px;border-radius:0 0 10px 10px;color:#333}.c-list[data-v-c3481be8]{position:absolute;transform:translate(-50%);background-color:#faebd7;max-height:80vh;min-width:400px;overflow-y:auto;padding:5px 10px;border-radius:10px}.c-list[data-v-89518ebf]{position:absolute;transform:translate(-50%);background-color:#faebd7;max-height:80vh;min-width:400px;overflow-y:auto;padding:5px 10px;border-radius:10px;color:#333;z-index:9999} ");
+(o=>{if(typeof GM_addStyle=="function"){GM_addStyle(o);return}const t=document.createElement("style");t.textContent=o,document.head.append(t)})(" .c-block[data-v-9663f8b4]{border-bottom:solid #ccc 1px;display:flex}.c[data-v-c3481be8]{position:fixed;top:0;left:50vw;background-color:#faebd7;transform:translate(-50%);padding:0 10px;border-radius:0 0 10px 10px;color:#333}.c-list[data-v-c3481be8]{position:absolute;transform:translate(-50%);background-color:#faebd7;max-height:80vh;min-width:400px;overflow-y:auto;padding:5px 10px;border-radius:10px}.c-list[data-v-89518ebf]{position:absolute;transform:translate(-50%);background-color:#faebd7;max-height:80vh;min-width:400px;overflow-y:auto;padding:5px 10px;border-radius:10px;color:#333;z-index:9999} ");
 
 (function (vue) {
   'use strict';
@@ -36,9 +36,11 @@
   const store_key = "gm_reminder";
   const server = gm_ref(store_key + "server", "http://127.0.0.1:6806");
   const token$1 = gm_ref(store_key + "token", "");
+  const protocol = gm_ref(store_key + "protocol", "siyuan");
   const config = vue.reactive({
     server,
-    token: token$1
+    token: token$1,
+    protocol
   });
   async function sql(stmt) {
     return new Promise((resolve, reject) => {
@@ -9279,6 +9281,7 @@
   });
   const _hoisted_1$3 = { class: "c-block" };
   const _hoisted_2 = ["href"];
+  const _hoisted_3 = ["href"];
   const _sfc_main$4 = /* @__PURE__ */ vue.defineComponent({
     __name: "SyBLock",
     props: {
@@ -9293,9 +9296,13 @@
           vue.createVNode(vue.unref(VueMarkdown), {
             source: __props.block.markdown || __props.block.content
           }, null, 8, ["source"]),
-          vue.createElementVNode("a", {
+          vue.unref(config).protocol === "siyuan" ? (vue.openBlock(), vue.createElementBlock("a", {
+            key: 0,
             href: `siyuan://blocks/${__props.block.id}`
-          }, "📝", 8, _hoisted_2)
+          }, "📝", 8, _hoisted_2)) : vue.unref(config).protocol === "http" ? (vue.openBlock(), vue.createElementBlock("a", {
+            key: 1,
+            href: `${vue.unref(config).server}/?id=${__props.block.id}&focus=true`
+          }, "📝", 8, _hoisted_3)) : vue.createCommentVNode("", true)
         ]);
       };
     }
@@ -9307,7 +9314,7 @@
     }
     return target2;
   };
-  const SyBLock = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-5fd0fecb"]]);
+  const SyBLock = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-9663f8b4"]]);
   const _hoisted_1$2 = {
     key: 0,
     class: "c-list"
@@ -9347,29 +9354,42 @@
   const _sfc_main$2 = /* @__PURE__ */ vue.defineComponent({
     __name: "config",
     props: {
+      "protocol": { default: "siyuan" },
+      "protocolModifiers": {},
       "server": {},
       "serverModifiers": {},
       "token": {},
       "tokenModifiers": {}
     },
-    emits: ["update:server", "update:token"],
+    emits: ["update:protocol", "update:server", "update:token"],
     setup(__props) {
+      const protocol2 = vue.useModel(__props, "protocol");
       const server2 = vue.useModel(__props, "server");
       const token2 = vue.useModel(__props, "token");
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          _cache[2] || (_cache[2] = vue.createElementVNode("h4", null, "思源再提醒插件", -1)),
-          _cache[3] || (_cache[3] = vue.createTextVNode(" server:")),
+          _cache[4] || (_cache[4] = vue.createElementVNode("h4", null, "思源再提醒插件", -1)),
+          _cache[5] || (_cache[5] = vue.createTextVNode(" 链接打开协议类型: ")),
+          vue.withDirectives(vue.createElementVNode("select", {
+            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => protocol2.value = $event)
+          }, _cache[3] || (_cache[3] = [
+            vue.createElementVNode("option", { value: "siyuan" }, "siyuan协议", -1),
+            vue.createElementVNode("option", { value: "http" }, "http协议", -1)
+          ]), 512), [
+            [vue.vModelSelect, protocol2.value]
+          ]),
+          _cache[6] || (_cache[6] = vue.createElementVNode("br", null, null, -1)),
+          _cache[7] || (_cache[7] = vue.createTextVNode(" server:")),
           vue.withDirectives(vue.createElementVNode("input", {
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => server2.value = $event)
+            "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => server2.value = $event)
           }, null, 512), [
             [vue.vModelText, server2.value]
           ]),
-          _cache[4] || (_cache[4] = vue.createElementVNode("br", null, null, -1)),
-          _cache[5] || (_cache[5] = vue.createTextVNode(" token:")),
+          _cache[8] || (_cache[8] = vue.createElementVNode("br", null, null, -1)),
+          _cache[9] || (_cache[9] = vue.createTextVNode(" token:")),
           vue.withDirectives(vue.createElementVNode("input", {
             type: "password",
-            "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => token2.value = $event)
+            "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => token2.value = $event)
           }, null, 512), [
             [vue.vModelText, token2.value]
           ])
@@ -9392,8 +9412,10 @@
             server: vue.unref(config).server,
             "onUpdate:server": _cache[0] || (_cache[0] = ($event) => vue.unref(config).server = $event),
             token: vue.unref(config).token,
-            "onUpdate:token": _cache[1] || (_cache[1] = ($event) => vue.unref(config).token = $event)
-          }, null, 8, ["server", "token"])) : vue.createCommentVNode("", true),
+            "onUpdate:token": _cache[1] || (_cache[1] = ($event) => vue.unref(config).token = $event),
+            protocol: vue.unref(config).protocol,
+            "onUpdate:protocol": _cache[2] || (_cache[2] = ($event) => vue.unref(config).protocol = $event)
+          }, null, 8, ["server", "token", "protocol"])) : vue.createCommentVNode("", true),
           vue.createVNode(PageInfo)
         ]);
       };
