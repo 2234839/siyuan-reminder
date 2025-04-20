@@ -3,6 +3,7 @@ import App from "./App.vue";
 import ElementInfo from "./components/ElementInfo.vue";
 import { sql } from "./utils/siyuan";
 import "./链接再提醒";
+import { config } from "./config";
 
 createApp(App).mount(
   (() => {
@@ -30,6 +31,7 @@ createApp(App).mount(
  */
 
 setTimeout(async () => {
+  if(!config.queryWebContent) return;
   const sy = await sql(`
     SELECT id, content AS segmenter FROM blocks WHERE content != '' AND (TYPE = 'd' OR TYPE = 'h')
     UNION ALL

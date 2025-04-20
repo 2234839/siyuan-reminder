@@ -11,4 +11,6 @@ export const config = reactive({
   server,
   token,
   protocol,
+  /** 是否解析正文内容 */
+  queryWebContent:false
 });

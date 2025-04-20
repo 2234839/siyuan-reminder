@@ -16,7 +16,6 @@
   import { config } from '../config';
   import { syBlock } from '../utils/siyuan';
   import VueMarkdown from 'vue-markdown-render';
-  config;
   const props = defineProps({
     block: {
       type: Object as () => syBlock,
