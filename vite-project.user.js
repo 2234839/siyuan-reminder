@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         思源再提醒
 // @namespace    npm/vite-plugin-monkey
-// @version      1.0.2
+// @version      1.0.3
 // @author       monkey
 // @description  为思源笔记添加再提醒功能
 // @license      MIT
@@ -37,12 +37,13 @@
   const server = gm_ref(store_key + "server", "http://127.0.0.1:6806");
   const token$1 = gm_ref(store_key + "token", "");
   const protocol = gm_ref(store_key + "protocol", "siyuan");
+  const queryWebContent = gm_ref(store_key + "protoqueryWebContentcol", false);
   const config = vue.reactive({
     server,
     token: token$1,
     protocol,
     /** 是否解析正文内容 */
-    queryWebContent: false
+    queryWebContent
   });
   async function sql(stmt) {
     return new Promise((resolve, reject) => {
